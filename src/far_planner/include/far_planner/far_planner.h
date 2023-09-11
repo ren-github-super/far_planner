@@ -10,7 +10,7 @@
 #include "planner_visualizer.h"
 #include "scan_handler.h"
 #include "graph_msger.h"
-
+#include <pcl/kdtree/impl/kdtree_flann.hpp>
 
 struct FARMasterParams {
     FARMasterParams() = default;

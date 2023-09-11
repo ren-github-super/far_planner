@@ -45,6 +45,8 @@
 #include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <pcl/impl/pcl_base.hpp>
+#include <pcl/filters/impl/crop_box.hpp>
 
 /* Utility Header Timer */
 #include "time_measure.h"

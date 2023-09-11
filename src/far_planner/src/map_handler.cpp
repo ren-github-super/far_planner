@@ -190,7 +190,7 @@ void MapHandler::GetSurroundObsCloud(const PointCloudPtr& obsCloudOut) {
 }
 
 void MapHandler::GetSurroundFreeCloud(const PointCloudPtr& freeCloudOut) {
-    if (!is_init_) return;
+    if (!is_init_) return;  //判断是否初始化 ，若初始化完成，则继续
     freeCloudOut->clear();
     for (const auto& neighbor_ind : neighbor_free_indices_) {
         if (world_free_cloud_grid_->GetCell(neighbor_ind)->empty()) continue;

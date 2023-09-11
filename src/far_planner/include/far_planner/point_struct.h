@@ -83,7 +83,7 @@ struct Point3D {
   }
   float norm() const
   {
-    return std::hypotf(x, std::hypotf(y,z));
+    return std::hypotf(x, std::hypotf(y,z)); //hypotf 等价于sqrt（x^2，y^2）,this formula is equivalent  to calculating the lenght of point(0,0,0)to point(x,y,z)
   };
 
   float norm_flat() const

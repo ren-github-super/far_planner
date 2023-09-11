@@ -155,7 +155,7 @@ bool GraphPlanner::PathToGoal(const NavNodePtr& goal_ptr,
     _is_fail = false, _is_succeed = false;
     global_path.clear();
     _goal_p = goal_ptr->position;
-    if (current_graph_.size() == 1) {
+    if (current_graph_.size() == 1) { //图中只有一个点，那就直接到这个点
         // update global path
         global_path.push_back(odom_node_ptr_);
         global_path.push_back(goal_ptr);
@@ -164,7 +164,7 @@ bool GraphPlanner::PathToGoal(const NavNodePtr& goal_ptr,
         return true;       
     }
     if ((odom_node_ptr_->position - _goal_p).norm() < gp_params_.converge_dist || 
-        (odom_node_ptr_->position - origin_goal_pos_).norm() < gp_params_.converge_dist)
+        (odom_node_ptr_->position - origin_goal_pos_).norm() < gp_params_.converge_dist) // arrive the aim point or the goal point human set is shorter than converge_dist
     {
         if (FARUtil::IsDebug) ROS_INFO("GP: *********** Goal Reached! ***********");
         global_path.push_back(odom_node_ptr_);
@@ -295,7 +295,7 @@ bool GraphPlanner::ReconstructPath(const NavNodePtr& goal_node_ptr,
     return true;
 }
 
-NavNodePtr GraphPlanner::NextNavWaypointFromPath(const NodePtrStack& global_path, const NavNodePtr goal_ptr) {
+NavNodePtr GraphPlanner::NextNavWaypointFromPath(const NodePtrStack& global_path, const NavNodePtr goal_ptr) { //this formula is to find the point which distance between the vehical is longer than gp_params_.converge_dist
     if (global_path.size() < 2) {
         ROS_ERROR("GP: global path size less than 2.");
         return goal_ptr;

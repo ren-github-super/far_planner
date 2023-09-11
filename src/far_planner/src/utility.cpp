@@ -198,7 +198,7 @@ geometry_msgs::Point FARUtil::Point3DToGeoMsgPoint(const Point3D& point) {
   return p;
 }
 
-void FARUtil::ExtractFreeAndObsCloud(const PointCloudPtr& newCloudIn,
+void FARUtil::ExtractFreeAndObsCloud(const PointCloudPtr& newCloudIn, //extract free and obstacle by the heigh of point kFree-->terrain_free_Z
                                     const PointCloudPtr& freeCloudOut,
                                     const PointCloudPtr& obsCloudOut) 
 {

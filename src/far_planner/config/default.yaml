@@ -1,56 +1,56 @@
 # Dynamic Planner Default Params
 main_run_freq                           : 2.5
-voxel_dim                               : 0.15  # Unit: meter
-robot_dim                               : 0.8   # Unit: meter
-vehicle_height                          : 0.75  # Unit: meter
-sensor_range                            : 30.0  # Unit: meter
-terrain_range                           : 15.0  # Unit: meter
-local_planner_range                     : 5.0   # Unit: meter
-visualize_ratio                         : 0.75
-is_viewpoint_extend                     : true
-is_multi_layer                          : false
+voxel_dim                               : 0.15  # Unit: meter default
+robot_dim                               : 0.8   # Unit: meter default
+vehicle_height                          : 1.0  # Unit: meter default 0.75
+sensor_range                            : 30.0  # Unit: meter default
+terrain_range                           : 15.0  # Unit: meter default
+local_planner_range                     : 5.0   # Unit: meter default
+visualize_ratio                         : 0.75  # default
+is_viewpoint_extend                     : true  # default
+is_multi_layer                          : false  # default
 is_opencv_visual                        : false # Obstalce Image Display
-is_static_env                           : true
-is_pub_boundary                         : false
-is_debug_output                         : false
-is_attempt_autoswitch                   : true  # Auto switch to attemptable navigation
-world_frame                             : map
+is_static_env                           : false  # default
+is_pub_boundary                         : true  # default
+is_debug_output                         : false  # default
+is_attempt_autoswitch                   : true  #  default true Auto switch to attemptable navigation
+world_frame                             : map  # default
 
 # Graph Messager
 GraphMsger/robot_id                     : 1  # graph from robot id "0" is extracted from files
 
 # Map Handler Params
-MapHandler/floor_height                 : 2.0     # Unit: meter
-MapHandler/cell_length                  : 5.0     # Unit: meter
-MapHandler/map_grid_max_length          : 1000.0  # Unit: meter
-MapHandler/map_grad_max_height          : 100.0   # Unit: meter
+MapHandler/floor_height                 : 2.0     # Unit: meter  # default
+MapHandler/cell_length                  : 5.0     # Unit: meter  # default
+MapHandler/map_grid_max_length          : 1000.0  # Unit: meter  # default
+MapHandler/map_grad_max_height          : 100.0   # Unit: meter  # default
 
 # Dynamic Planner Utility Params
-Util/angle_noise                        : 15.0 # Unit: degree
-Util/accept_max_align_angle             : 4.0  # Unit: degree
-Util/obs_inflate_size                   : 1
-Util/new_intensity_thred                : 2.0
-Util/terrain_free_Z                     : 0.2
-Util/dyosb_update_thred                 : 4
-Util/new_point_counter                  : 5
-Util/dynamic_obs_dacay_time             : 10.0 # Unit: second
-Util/new_points_decay_time              : 1.0  # Unit: second
+Util/angle_noise                        : 15.0 # Unit: degree  # default
+Util/accept_max_align_angle             : 4.0  # Unit: degree  # default
+Util/obs_inflate_size                   : 1  # default
+Util/new_intensity_thred                : 2.0  # default
+Util/terrain_free_Z                     : 0.1  # default 0.2 利用intensity判断是否是障碍物,intensity is calculated by distance between the current point and the lowest point in the area range corresponding to the current poinyt
+Util/dyosb_update_thred                 : 4  # default
+Util/new_point_counter                  : 5  # default
+Util/dynamic_obs_dacay_time             : 10.0 # Unit: second  # default
+Util/new_points_decay_time              : 1.0  # Unit: second  # default
 
 # Dynamic Graph Params
-Graph/connect_votes_size                : 10
-Graph/clear_dumper_thred                : 4
-Graph/node_finalize_thred               : 6
-Graph/filter_pool_size                  : 12
+Graph/connect_votes_size                : 10  # default
+Graph/clear_dumper_thred                : 4  # default
+Graph/node_finalize_thred               : 6  # default
+Graph/filter_pool_size                  : 12  # default
 
 # Corner Detector Params
-CDetector/resize_ratio                  : 3.0
-CDetector/filter_count_value            : 3
-CDetector/is_save_img                   : false
-CDetector/img_folder_path               : /path
+CDetector/resize_ratio                  : 3.0  # default
+CDetector/filter_count_value            : 3  # default
+CDetector/is_save_img                   : false  # default
+CDetector/img_folder_path               : /path  # default
 
 # Graph Planner Params
-GPlanner/converge_distance              : 0.5  # Unit: meter
-GPlanner/goal_adjust_radius             : 2.0  # Unit: meter
-GPlanner/free_counter_thred             : 7
-GPlanner/reach_goal_vote_size           : 3
-GPlanner/path_momentum_thred            : 3
+GPlanner/converge_distance              : 0.5  # Unit: meter  # default 0.5 判断是否到达了目标点
+GPlanner/goal_adjust_radius             : 2.0  # Unit: meter  # default 2.0 
+GPlanner/free_counter_thred             : 7  # default
+GPlanner/reach_goal_vote_size           : 3  # default
+GPlanner/path_momentum_thred            : 3  # default

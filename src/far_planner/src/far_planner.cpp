@@ -12,15 +12,17 @@
 
 void FARMaster::Init() {
   /* initialize subscriber and publisher */
-  reset_graph_sub_    = nh.subscribe("/reset_visibility_graph", 5, &FARMaster::ResetGraphCallBack, this);
-  odom_sub_           = nh.subscribe("/odom_world", 5, &FARMaster::OdomCallBack, this);
-  terrain_sub_        = nh.subscribe("/terrain_cloud", 1, &FARMaster::TerrainCallBack, this);
-  scan_sub_           = nh.subscribe("/scan_cloud", 5, &FARMaster::ScanCallBack, this);
+
+  reset_graph_sub_    = nh.subscribe("/reset_visibility_graph", 5, &FARMaster::ResetGraphCallBack, this);//reset_graph_sub_等在头文件中定义了ros::Subscriber/ros::Publisher
+//1.话题名字2.接收消息队列长度3.回调函数，注意一定要取函数的地址4.回调函数是某一个类的成员函数，则参数4就是对西那个的地址，如果回调函数是一个全局函数则为空就好 
+  odom_sub_           = nh.subscribe("/odom_world", 5, &FARMaster::OdomCallBack, this);//&&FARMaster::OdomCallBack, this 采用的是调用类内函数所需要的格式
+  terrain_sub_        = nh.subscribe("/terrain_cloud", 1, &FARMaster::TerrainCallBack, this); // /terrain_map_ext is point map use to operate the free_cloud and obs_cloud
+  scan_sub_           = nh.subscribe("/scan_cloud", 5, &FARMaster::ScanCallBack, this);  // //registered_scan  传感器在全局map坐标系下的点云数据
   waypoint_sub_       = nh.subscribe("/goal_point", 1, &FARMaster::WaypointCallBack, this);
-  terrain_local_sub_  = nh.subscribe("/terrain_local_cloud", 1, &FARMaster::TerrainLocalCallBack, this);
+  // terrain_local_sub_  = nh.subscribe("/terrain_local_cloud", 1, &FARMaster::TerrainLocalCallBack, this);  // terrain_map
   joy_command_sub_    = nh.subscribe("/joy", 5, &FARMaster::JoyCommandCallBack, this);
   update_command_sub_ = nh.subscribe("/update_visibility_graph", 5, &FARMaster::UpdateCommandCallBack, this);
-  goal_pub_           = nh.advertise<geometry_msgs::PointStamped>("/way_point",5);
+  goal_pub_           = nh.advertise<geometry_msgs::PointStamped>("/way_point",5); //当发布服务器和订阅服务器作用在相同的节点的同一个话题时使用advertise， （进程内发布）
   boundary_pub_       = nh.advertise<geometry_msgs::PolygonStamped>("/navigation_boundary",5);
   // Timers
   runtime_pub_        = nh.advertise<std_msgs::Float32>("/runtime",1);
@@ -280,7 +282,7 @@ void FARMaster::PlanningCallBack(const ros::TimerEvent& event) {
       } else if (master_params_.is_viewpoint_extend) {
         planner_viz_.VizViewpointExtend(goal_ptr, goal_ptr->position);
       }
-      goal_waypoint_stamped_.point = FARUtil::Point3DToGeoMsgPoint(waypoint);
+      goal_waypoint_stamped_.point = FARUtil::Point3DToGeoMsgPoint(waypoint); //通过/way_point发布
       goal_pub_.publish(goal_waypoint_stamped_);
       is_planner_running_ = true;
       planner_viz_.VizPoint3D(waypoint, "waypoint", VizColor::MAGNA, 1.5);
@@ -607,11 +609,11 @@ void FARMaster::ScanCallBack(const sensor_msgs::PointCloud2ConstPtr& scan_pc) {
   scan_handler_.UpdateRobotPosition(robot_pos_);
 }
 
-void FARMaster::TerrainLocalCallBack(const sensor_msgs::PointCloud2ConstPtr& pc) {
-  if (master_params_.is_static_env) return;
-  this->PrcocessCloud(pc, local_terrain_ptr_);
-  FARUtil::ExtractFreeAndObsCloud(local_terrain_ptr_, FARUtil::local_terrain_free_, FARUtil::local_terrain_obs_);
-}
+// void FARMaster::TerrainLocalCallBack(const sensor_msgs::PointCloud2ConstPtr& pc) {
+//   if (master_params_.is_static_env) return;
+//   this->PrcocessCloud(pc, local_terrain_ptr_);
+//   FARUtil::ExtractFreeAndObsCloud(local_terrain_ptr_, FARUtil::local_terrain_free_, FARUtil::local_terrain_obs_);
+// }
 
 void FARMaster::TerrainCallBack(const sensor_msgs::PointCloud2ConstPtr& pc) {
   if (!is_odom_init_) return;

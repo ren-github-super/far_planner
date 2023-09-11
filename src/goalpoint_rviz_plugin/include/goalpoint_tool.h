@@ -12,14 +12,14 @@
 #include "rviz/display_context.h"
 #include "rviz/properties/string_property.h"
 #include "rviz/default_plugin/tools/pose_tool.h"
-
+// #include "rviz/default_plugin/tools/goal_tool.h" //完全是基于Poseool的类构造函数来实现的
 namespace rviz
 {
 class StringProperty;
 
-class GoalPointTool : public PoseTool
+class GoalPointTool : public PoseTool //GoalPointTool公有继承PoseTool
 {
-  Q_OBJECT
+  Q_OBJECT  //后边需要用到的qt的信号，都是QObject的子类，所以需要声明Q_OBJECT宏
 public:
   GoalPointTool();
   virtual ~GoalPointTool()
@@ -31,7 +31,7 @@ protected:
   virtual void odomHandler(const nav_msgs::Odometry::ConstPtr& odom);
   virtual void onPoseSet(double x, double y, double theta);
 
-private Q_SLOTS:
+private Q_SLOTS:  //私人槽
   void updateTopic();
 
 private:

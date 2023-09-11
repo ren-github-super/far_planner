@@ -32,31 +32,31 @@ void GoalPointTool::odomHandler(const nav_msgs::Odometry::ConstPtr& odom)
 
 void GoalPointTool::onPoseSet(double x, double y, double theta)
 {
-  sensor_msgs::Joy joy;
+  // sensor_msgs::Joy joy;
 
-  joy.axes.push_back(0);
-  joy.axes.push_back(0);
-  joy.axes.push_back(-1.0);
-  joy.axes.push_back(0);
-  joy.axes.push_back(1.0);
-  joy.axes.push_back(1.0);
-  joy.axes.push_back(0);
-  joy.axes.push_back(0);
+  // joy.axes.push_back(0);
+  // joy.axes.push_back(0);
+  // joy.axes.push_back(-1.0);
+  // joy.axes.push_back(0);
+  // joy.axes.push_back(1.0);
+  // joy.axes.push_back(1.0);
+  // joy.axes.push_back(0);
+  // joy.axes.push_back(0);
 
-  joy.buttons.push_back(0);
-  joy.buttons.push_back(0);
-  joy.buttons.push_back(0);
-  joy.buttons.push_back(0);
-  joy.buttons.push_back(0);
-  joy.buttons.push_back(0);
-  joy.buttons.push_back(0);
-  joy.buttons.push_back(1);
-  joy.buttons.push_back(0);
-  joy.buttons.push_back(0);
-  joy.buttons.push_back(0);
+  // joy.buttons.push_back(0);
+  // joy.buttons.push_back(0);
+  // joy.buttons.push_back(0);
+  // joy.buttons.push_back(0);
+  // joy.buttons.push_back(0);
+  // joy.buttons.push_back(0);
+  // joy.buttons.push_back(0);
+  // joy.buttons.push_back(1);
+  // joy.buttons.push_back(0);
+  // joy.buttons.push_back(0);
+  // joy.buttons.push_back(0);
 
-  joy.header.stamp = ros::Time::now();
-  joy.header.frame_id = "goalpoint_tool";
+  // joy.header.stamp = ros::Time::now();
+  // joy.header.frame_id = "goalpoint_tool";
   
   geometry_msgs::PointStamped goal_point;
   goal_point.header.frame_id = "map";
@@ -69,10 +69,10 @@ void GoalPointTool::onPoseSet(double x, double y, double theta)
   usleep(10000);
   pub_.publish(goal_point);
   
-  usleep(10000); // set to 1000000us (1s) on real robot
-  pub_joy_.publish(joy);
+  // usleep(10000); // set to 1000000us (1s) on real robot
+  // pub_joy_.publish(joy);
 }
 }  // end namespace rviz
 
-#include <pluginlib/class_list_macros.hpp>
+#include <pluginlib/class_list_macros.hpp> //声明此类是一个rviz的插件
 PLUGINLIB_EXPORT_CLASS(rviz::GoalPointTool, rviz::Tool)
